@@ -114,6 +114,11 @@ import {
     DbAnalyticsChartViews,
     DbAnalyticsDashboardViews,
 } from '../database/entities/analytics';
+import { GroupTable, GroupTableName } from '../database/entities/groups';
+import {
+    GroupMembershipTable,
+    GroupMembershipTableName,
+} from '../database/entities/group_memberships';
 import {
     SchedulerSlackTargetTable,
     SchedulerSlackTargetTableName,
@@ -166,5 +171,7 @@ declare module 'knex/types/tables' {
         [PinnedDashboardTableName]: PinnedDashboardTable;
         [SchedulerTableName]: SchedulerTable;
         [SchedulerSlackTargetTableName]: SchedulerSlackTargetTable;
+        [GroupTableName]: GroupTable;
+        [GroupMembershipTableName]: GroupMembershipTable;
     }
 }

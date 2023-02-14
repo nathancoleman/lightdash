@@ -5,6 +5,7 @@ import {
     analyticsModel,
     dashboardModel,
     emailModel,
+    groupsModel,
     inviteLinkModel,
     jobModel,
     onboardingModel,
@@ -20,13 +21,13 @@ import {
     searchModel,
     sessionModel,
     shareModel,
-    slackAuthenticationModel,
     spaceModel,
     userModel,
 } from '../models/models';
 import { AnalyticsService } from './AnalyticsService/AnalyticsService';
 import { DashboardService } from './DashboardService/DashboardService';
 import { EncryptionService } from './EncryptionService/EncryptionService';
+import { GroupsService } from './GroupService';
 import { HealthService } from './HealthService/HealthService';
 import { OrganizationService } from './OrganizationService/OrganizationService';
 import { PersonalAccessTokenService } from './PersonalAccessTokenService';
@@ -61,6 +62,7 @@ export const organizationService = new OrganizationService({
     inviteLinkModel,
     organizationMemberProfileModel,
     userModel,
+    groupsModel,
 });
 
 export const projectService = new ProjectService({
@@ -137,4 +139,8 @@ export const schedulerService = new SchedulerService({
     schedulerModel,
     savedChartModel,
     dashboardModel,
+});
+
+export const groupService = new GroupsService({
+    groupsModel,
 });

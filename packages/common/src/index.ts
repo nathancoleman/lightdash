@@ -66,6 +66,7 @@ export * from './types/api';
 export * from './types/api/errors';
 export * from './types/api/integrations';
 export * from './types/api/share';
+export * from './types/api/success';
 export * from './types/conditionalFormatting';
 export * from './types/conditionalRule';
 export * from './types/dashboard';
@@ -75,6 +76,7 @@ export * from './types/errors';
 export * from './types/explore';
 export * from './types/field';
 export * from './types/filter';
+export * from './types/groups';
 export * from './types/job';
 export * from './types/metricQuery';
 export * from './types/organization';
@@ -175,6 +177,7 @@ export const SEED_ORG_1 = {
     organization_uuid: '172a2270-000f-42be-9c68-c4752c23ae51',
     organization_name: 'Jaffle Shop',
 };
+
 export const SEED_ORG_1_ADMIN = {
     user_uuid: 'b264d83a-9000-426a-85ec-3f9c20f368ce',
     first_name: 'David',

@@ -1,6 +1,9 @@
 import { subject } from '@casl/ability';
 import {
+    CreateGroup,
+    CreateProject,
     ForbiddenError,
+    Group,
     LightdashMode,
     NotExistsError,
     OnbordingRecord,
@@ -12,6 +15,7 @@ import {
 } from '@lightdash/common';
 import { analytics } from '../../analytics/client';
 import { lightdashConfig } from '../../config/lightdashConfig';
+import { GroupsModel } from '../../models/GroupsModel';
 import { InviteLinkModel } from '../../models/InviteLinkModel';
 import { OnboardingModel } from '../../models/OnboardingModel/OnboardingModel';
 import { OrganizationMemberProfileModel } from '../../models/OrganizationMemberProfileModel';
@@ -26,6 +30,8 @@ type OrganizationServiceDependencies = {
     inviteLinkModel: InviteLinkModel;
     organizationMemberProfileModel: OrganizationMemberProfileModel;
     userModel: UserModel;
+
+    groupsModel: GroupsModel;
 };
 
 export class OrganizationService {
@@ -41,6 +47,8 @@ export class OrganizationService {
 
     private readonly userModel: UserModel;
 
+    private readonly groupsModel: GroupsModel;
+
     constructor({
         organizationModel,
         projectModel,
@@ -48,6 +56,7 @@ export class OrganizationService {
         inviteLinkModel,
         organizationMemberProfileModel,
         userModel,
+        groupsModel,
     }: OrganizationServiceDependencies) {
         this.organizationModel = organizationModel;
         this.projectModel = projectModel;
@@ -55,6 +64,7 @@ export class OrganizationService {
         this.inviteLinkModel = inviteLinkModel;
         this.organizationMemberProfileModel = organizationMemberProfileModel;
         this.userModel = userModel;
+        this.groupsModel = groupsModel;
     }
 
     async get(user: SessionUser): Promise<Organisation> {
@@ -260,5 +270,23 @@ export class OrganizationService {
             memberUserUuid,
             data,
         );
+    }
+
+    async addGroupToOrganization(
+        actor: SessionUser,
+        createGroup: CreateGroup,
+    ): Promise<Group> {
+        if (
+            actor.ability.cannot(
+                'manage',
+                subject('Organization', {
+                    organizationUuid: createGroup.organizationUuid,
+                }),
+            )
+        ) {
+            throw new ForbiddenError();
+        }
+        const group = await this.groupsModel.createGroup(createGroup);
+        return group;
     }
 }
