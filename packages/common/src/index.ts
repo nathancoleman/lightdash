@@ -64,7 +64,7 @@ import { SchedulerAndTargets } from './types/scheduler';
 import { SlackChannel } from './types/slack';
 import { Space } from './types/space';
 import { TableBase } from './types/table';
-import { LightdashUser } from './types/user';
+import { LightdashUser, UserAllowedOrganization } from './types/user';
 import { formatItemValue } from './utils/formatting';
 import { getItemId, getItemLabelWithoutTableName } from './utils/item';
 
@@ -481,6 +481,7 @@ type ApiResults =
     | SchedulerAndTargets[]
     | FieldValueSearchResult
     | ApiDownloadCsv
+    | UserAllowedOrganization[]
     | EmailStatusExpiring;
 
 export type ApiResponse = {
